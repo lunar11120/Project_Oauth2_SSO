@@ -1,0 +1,98 @@
+spring-security-oauth 2.x use with java 7  -  JDK 1.7
+
+Java 7+ required - LibraryJava 7+ Required OK with 7
+........................................
+spring-security-oauth 2.x+	
+Spring Security 4.x/5.x OAuth2
+
+success with no  spring-security-oauth2
+E:\project3\Oauth2section\sample_jsf_github_java_jdk8
+
+Spring Boot   Version    JDK 8 Support
+2.1.x - 2.5.x	       Yes
+2.6.x - 2.7.x	       Yes*
+3.x	                        No
+
+Spring Security 5.x Support  good for spring boot 2.0 - 2.7
+spring boot 2.7 good for spring-security-oauth Version 2.5.2
+
+--------------------------------------------------------prompt---------------
+create project java web application.
+application name maven28
+use spring framework version 4.0.1 
+use spring-security-oauth2 version2.3.8.
+use jdk 8
+not use thymeleaf
+not use spring boot
+
+i want oauth2 login example github.
+please write simple code for use with other oauth2 , not specific with github only
+
+use this config
+
+clientId: Ov23lir1F4lZqXkEOVIs
+clientSecret: 26ba121f070c3abe1b17ae33aa5f81704e94f5cc
+authorizationUri: https://github.com/login/oauth/authorize
+tokenUri: https://github.com/login/oauth/access_token
+userInfoUri: https://api.github.com/user
+userNameAttribute: login
+redirect uri = http://localhost:8080/maven3/login/github
+
+# GitHub OAuth2 Settings
+GitHub.clientId: Ov23lir1F4lZqXkEOVIs
+GitHub.clientSecret: 26ba121f070c3abe1b17ae33aa5f81704e94f5cc
+GitHub.authorizationUri: https://github.com/login/oauth/authorize
+GitHub.tokenUri: https://github.com/login/oauth/access_token
+GitHub.userInfoUri: https://api.github.com/user
+GitHub.userNameAttribute: login
+GitHub.redirect uri = http://localhost:8080/maven3/login/github
+
+please use config from application.properties
+save dependency to folder lib in this project
+---------------------------------------------------------------------------------------------------
+create project java web application in this folder.
+application name maven3 . use java pattern   Model-View-Controller (MVC) 
+use jdk 8
+not use thymeleaf .not use spring boot .not use spring framework
+
+i want oauth2 login example github.
+please write simple code for use with other oauth2 , not specific with github only
+
+use this config . and save in application.properties
+
+clientId: Ov23lir1F4lZqXkEOVIs
+clientSecret: 26ba121f070c3abe1b17ae33aa5f81704e94f5cc
+authorizationUri: https://github.com/login/oauth/authorize
+tokenUri: https://github.com/login/oauth/access_token
+userInfoUri: https://api.github.com/user
+scope:user:email
+redirect uri : http://localhost:8080/maven3/login/github
+
+please use config from application.properties
+save dependency to folder lib in this project
+
+--------------------------------------------------------------------
+
+create project java web application.
+application name maven3
+use spring security 3.2.0
+scribejava 6.9.0
+use jdk 8
+not use thymeleaf
+not use spring boot
+
+i want oauth2 login example github.
+please write simple code for use with other oauth2 , not specific with github only
+
+use this config
+
+clientId: Ov23lir1F4lZqXkEOVIs
+clientSecret: 26ba121f070c3abe1b17ae33aa5f81704e94f5cc
+authorizationUri: https://github.com/login/oauth/authorize
+tokenUri: https://github.com/login/oauth/access_token
+userInfoUri: https://api.github.com/user
+userNameAttribute: login
+redirect uri = http://localhost:8080/maven3/login/github
+
+please use config from application.properties
+save dependency to folder lib in this project

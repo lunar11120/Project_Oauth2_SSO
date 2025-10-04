@@ -1,0 +1,186 @@
+For JDK 7 compatibility, you'll want to use Spring Security 4.2.x, which is the last version that officially supports Java 7. 
+Here are the best practices and configuration:
+
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-web</artifactId>
+    <version>4.2.20.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-config</artifactId>
+    <version>4.2.20.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-core</artifactId>
+    <version>4.2.20.RELEASE</version>
+</dependency>
+
+🏗️ Basic Security Configuration (Java 7 Compatible)
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+                .antMatchers("/login", "/css/**", "/js/**").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+            .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/dashboard")
+                .permitAll()
+                .and()
+            .logout()
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+                .and()
+            .csrf().disable(); // Only disable if needed
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+            .inMemoryAuthentication()
+                .withUser("admin").password("password").roles("ADMIN")
+                .and()
+                .withUser("user").password("password").roles("USER");
+    }
+}
+--------------------------------------------------------------------------------------
+2. Web.xml Configuration (For Servlet-based setup)
+<!-- Spring Security Filter -->
+<filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+
+OAuth2 Integration (JDK 7 Compatible)
+
+
+@Configuration
+@EnableOAuth2Client
+public class OAuth2Config {
+
+    @Bean
+    public OAuth2RestTemplate oauth2RestTemplate(OAuth2ClientContext oauth2Context) {
+        return new OAuth2RestTemplate(github(), oauth2Context);
+    }
+
+    @Bean
+    @ConfigurationProperties("github")
+    public AuthorizationCodeResourceDetails github() {
+        return new AuthorizationCodeResourceDetails();
+    }
+
+    @Bean
+    @ConfigurationProperties("github.resource")
+    public ResourceServerProperties githubResource() {
+        return new ResourceServerProperties();
+    }
+
+    @Bean
+    public Filter ssoFilter() {
+        OAuth2ClientAuthenticationProcessingFilter filter = 
+            new OAuth2ClientAuthenticationProcessingFilter("/login/github");
+        
+        filter.setRestTemplate(oauth2RestTemplate(null));
+        filter.setTokenServices(new UserInfoTokenServices(
+            githubResource().getUserInfoUri(), 
+            github().getClientId()));
+        
+        return filter;
+    }
+}
+
+
+# GitHub OAuth2 Configuration
+github.client.clientId=Ov23lir1F4lZqXkEOVIs
+github.client.clientSecret=26ba121f070c3abe1b17ae33aa5f81704e94f5cc
+github.client.accessTokenUri=https://github.com/login/oauth/access_token
+github.client.userAuthorizationUri=https://github.com/login/oauth/authorize
+github.client.clientAuthenticationScheme=form
+github.client.scope=user:email
+
+github.resource.userInfoUri=https://api.github.com/user
+
+
+<properties>
+    <spring.version>4.3.30.RELEASE</spring.version>
+    <spring.security.version>4.2.20.RELEASE</spring.security.version>
+    <java.version>1.7</java.version>
+</properties>
+
+<dependencies>
+    <!-- Spring Framework -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    
+    <!-- Spring Security -->
+    <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-web</artifactId>
+        <version>${spring.security.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+        <version>${spring.security.version}</version>
+    </dependency>
+    
+    <!-- Spring Security OAuth2 -->
+    <dependency>
+        <groupId>org.springframework.security.oauth</groupId>
+        <artifactId>spring-security-oauth2</artifactId>
+        <version>2.2.5.RELEASE</version>
+    </dependency>
+</dependencies>
+
+
+
+
+For JDK 7 compatibility, you'll want to use Spring Security 4.2.x, which is the last version that officially supports Java 7. Here are the best practices and configuration:
+
+🔧 Recommended Spring Security Version for JDK 7
+🏗️ Basic Security Configuration (Java 7 Compatible)
+1. Web Security Configuration
+2. Web.xml Configuration (For Servlet-based setup)
+🔐 OAuth2 Integration (JDK 7 Compatible)
+For your GitHub OAuth integration with JDK 7:
+
+⚙️ Application Properties for JDK 7
+📋 Complete Dependency List (JDK 7)
+🚨 Important Notes for JDK 7
+Version Compatibility:
+
+Spring Framework: 4.3.x (last to support Java 7)
+Spring Security: 4.2.x (last to support Java 7)
+Spring Security OAuth: 2.2.x
+Security Considerations:
+
+JDK 7 has known security vulnerabilities
+Consider upgrading to JDK 8+ if possible
+Use HTTPS in production
+Keep dependencies updated within compatible ranges
+Performance Tips:
+
+Enable security caching
+Use method-level security sparingly
+Configure session management properly
+🔄 Migration Path
+If you can upgrade from JDK 7:
+
+JDK 8: Spring Security 5.x
+JDK 11+: Spring Security 6.x (latest)

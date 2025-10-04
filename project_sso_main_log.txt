@@ -1,0 +1,8 @@
+log 4 october 2025
+-----------------------------------------------------------------
+sso seamless in localNotebook is work as Google TSL no problem
+JSFHelloworld3 is work with JDK1.7 and glassfish 4.1.1
+
+commit 4 october 2025 initProject_Oauth2_SSO
+-----------------------------------------------------------------
+- login sso test JSFHelloworld4 (Google) in progess
