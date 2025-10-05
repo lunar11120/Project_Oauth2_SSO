@@ -96,3 +96,14 @@ redirect uri = http://localhost:8080/maven3/login/github
 
 please use config from application.properties
 save dependency to folder lib in this project
+
+NEW config seamless
+Seamless for Github
+------------------------------------------------------------
+clientId: Ov23lixOprddvARqQaOv
+clientSecret: a8e5e23007d4805c1c09f9f434418a7d22393d80
+authorizationUri: https://github.com/login/oauth/authorize
+tokenUri: https://github.com/login/oauth/access_token
+userInfoUri: https://api.github.com/user
+userNameAttribute: login
+redirect uri = http://localhost:8080/seamless/login/github/github_callback.jsf
